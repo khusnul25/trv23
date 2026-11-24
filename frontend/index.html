@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Official Community Hub | WhatsApp Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- TOP NAVBAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <!-- KLIK LOGO UNTUK KE HALAMAN ADMIN -->
+      <div class="brand-logo" id="adminTrigger" title="Klik untuk Panel Admin">
+        <img src="https://raw.githubusercontent.com/khusnul25/SagaBotz/main/database/1795528162095.jpg" alt="Logo Grup" id="groupLogoImg" />
+        <div class="brand-text">
+          <span class="brand-title">The Revanants 23</span>
+          <span class="brand-badge">v2.6 OFFICIAL WEBSITE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <!-- Toggle Dark / Light Mode -->
+      <button class="icon-btn" id="themeToggle" aria-label="Ganti Tema">
+        <span id="themeIcon">☀️</span>
+      </button>
+
+      <!-- Hamburger Menu Button -->
+      <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu Navigasi">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HAMBURGER DRAWER MENU -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <nav class="side-drawer" id="sideDrawer">
+    <div class="drawer-header">
+      <span class="mono-label">NAVIGATION // PAGES</span>
+      <button class="close-drawer" id="closeDrawer"></button>
+    </div>
+    <ul class="nav-links">
+      <li><button class="nav-item active" data-page="home"><span class="method-tag get">01</span> Halaman Utama</button></li>
+      <li><button class="nav-item" data-page="events"><span class="method-tag post">02</span> Jadwal & Event</button></li>
+      <li><button class="nav-item" data-page="rules"><span class="method-tag warn">03</span> Peraturan Grup</button></li>
+      <li><button class="nav-item" data-page="album"><span class="method-tag info">04</span> Galeri & Album</button></li>
+      <li><button class="nav-item" data-page="feedback"><span class="method-tag anon">05</span> Saran & Kritik (Anonim)</button></li>
+    </ul>
+    <div class="drawer-footer">
+      <p class="mono-label">Tip: Klik logo grup di header untuk akses kontrol admin.</p>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTAINER (Setiap Halaman Berbeda & Terpisah) -->
+  <main class="container">
+
+    <!-- PAGE 1: HALAMAN UTAMA -->
+    <section id="page-home" class="page-section active">
+      <div class="hero-card">
+        <div class="status-pill"><span class="dot"></span> GROUP STATUS: ACTIVE & OPEN</div>
+        <h1>Selamat Datang di Portal Resmi Komunitas Kami</h1>
+        <p class="hero-desc">
+          Pusat informasi terpadu untuk seluruh member grup WhatsApp. Cek agenda event terbaru, pahami aturan main biar nggak kena kick, lihat dokumentasi momen mabar/gathering, atau kirim kritik secara rahasia.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="navigateTo('events')">Lihat Event Terdekat </button>
+          <button class="btn-secondary" onclick="navigateTo('rules')">Baca Rules Grup</button>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span class="mono-label">TOTAL EVENT</span>
+          <h2 id="stat-events">0</h2>
+          <p>Agenda aktif & terjadwal</p>
+        </div>
+        <div class="stat-box">
+          <span class="mono-label">PASAL RULES</span>
+          <h2 id="stat-rules">0</h2>
+          <p>Pedoman ketertiban member</p>
+        </div>
+        <div class="stat-box">
+          <span class="mono-label">DOKUMENTASI</span>
+          <h2 id="stat-albums">0</h2>
+          <p>Foto tersimpan di album</p>
+        </div>
+        <div class="stat-box">
+          <span class="mono-label">ASPIRASI MASUK</span>
+          <h2 id="stat-feedbacks">0</h2>
+          <p>Pesan anonim terenkripsi</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 2: HALAMAN EVENT -->
+    <section id="page-events" class="page-section">
+      <div class="section-header">
+        <span class="method-tag post">SCHEDULE // EVENTS</span>
+        <h1>Agenda & Event Grup</h1>
+        <p>Daftar kegiatan mabar, diskusi, giveaway, atau gathering mendatang.</p>
+      </div>
+      <div id="eventsList" class="cards-grid">
+        <div class="skeleton">Memuat daftar event...</div>
+      </div>
+    </section>
+
+    <!-- PAGE 3: HALAMAN RULES -->
+    <section id="page-rules" class="page-section">
+      <div class="section-header">
+        <span class="method-tag warn">PROTOCOL // RULES</span>
+        <h1>Peraturan & Tata Tertib</h1>
+        <p>Wajib dipatuhi oleh seluruh member tanpa terkecuali demi kenyamanan bersama.</p>
+      </div>
+      <div id="rulesList" class="rules-stack">
+        <div class="skeleton">Memuat peraturan grup...</div>
+      </div>
+    </section>
+
+    <!-- PAGE 4: HALAMAN ALBUM -->
+    <section id="page-album" class="page-section">
+      <div class="section-header">
+        <span class="method-tag info">ARCHIVE // GALLERY</span>
+        <h1>Album Kenangan Grup</h1>
+        <p>Kumpulan screenshot momen seru, poster event, dan dokumentasi member.</p>
+      </div>
+      <div id="albumGrid" class="album-grid">
+        <div class="skeleton">Memuat galeri foto...</div>
+      </div>
+    </section>
+
+    <!-- PAGE 5: HALAMAN SARAN & KRITIK (ANONIM) -->
+    <section id="page-feedback" class="page-section">
+      <div class="section-header">
+        <span class="method-tag anon">ENCRYPTED // ANONYMOUS</span>
+        <h1>Kotak Saran & Kritik Anonim</h1>
+        <p>Identitas, nomor WA, dan IP kamu <strong>tidak dicatat sama sekali</strong>. Sampaikan masukanmu dengan jujur.</p>
+      </div>
+
+      <div class="feedback-layout">
+        <form id="feedbackForm" class="doc-card form-card">
+          <h3>Kirim Pesan Rahasia</h3>
+          <label>Kategori Masukan</label>
+          <select id="fbCategory">
+            <option value="Saran"> Saran Pengembangan Grup</option>
+            <option value="Kritik"> Kritik Pedas / Evaluasi Admin</option>
+            <option value="Laporan"> Laporan Member Bermasalah</option>
+          </select>
+
+          <label>Isi Pesan (100% Anonim)</label>
+          <textarea id="fbMessage" rows="4" placeholder="Tulis unek-unek, saran event, atau kritik untuk admin di sini..." required></textarea>
+
+          <button type="submit" class="btn-primary full-width">Kirim Secara Anonim��</button>
+          <p id="fbStatus" class="status-msg"></p>
+        </form>
+
+        <div class="feedback-wall">
+          <h3>Aspirasi Terbaru dari Member</h3>
+          <div id="feedbackList" class="stack-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 6: HALAMAN KHUSUS ADMIN (Diakses lewat Klik Logo) -->
+    <section id="page-admin" class="page-section">
+      <!-- Form Login Admin (Muncul jika belum punya token valid) -->
+      <div id="adminLoginBox" class="doc-card login-box">
+        <span class="method-tag post">RESTRICTED // ADMIN AUTH</span>
+        <h2>Verifikasi Otoritas Admin</h2>
+        <p>Masukkan kata sandi master untuk mengelola konten grup.</p>
+        <form id="adminLoginForm">
+          <input type="password" id="adminPassInput" placeholder="Masukkan Password Admin..." required />
+          <button type="submit" class="btn-primary full-width">Buka Dashboard Admin</button>
+        </form>
+        <p id="loginError" class="error-msg"></p>
+      </div>
+
+      <!-- Panel Kontrol Admin (Muncul setelah verifikasi server berhasil) -->
+      <div id="adminDashboard" class="hidden">
+        <div class="admin-topbar">
+          <div>
+            <span class="method-tag get">AUTHENTICATED</span>
+            <h2>Panel Kontrol Admin Grup</h2>
+          </div>
+          <button id="adminLogoutBtn" class="btn-secondary">Keluar Sesi</button>
+        </div>
+
+        <div class="admin-grid">
+          <!-- Kelola Event -->
+          <div class="doc-card">
+            <h3>+ Tambah Event Baru</h3>
+            <form id="addEventForm" class="admin-form">
+              <input type="text" id="evTitle" placeholder="Judul Event (misal: Mabar Turnamen)" required />
+              <div class="row-2">
+                <input type="text" id="evDate" placeholder="Tanggal (28 Nov 2026)" required />
+                <input type="text" id="evTime" placeholder="Jam (20:00 WIB)" required />
+              </div>
+              <textarea id="evDesc" rows="2" placeholder="Deskripsi singkat event..." required></textarea>
+              <button type="submit" class="btn-primary">Publish Event</button>
+            </form>
+            <div class="admin-manage-list" id="adminEventsList"></div>
+          </div>
+
+          <!-- Kelola Rules -->
+          <div class="doc-card">
+            <h3>+ Tambah Peraturan (Rules)</h3>
+            <form id="addRuleForm" class="admin-form">
+              <div class="row-2">
+                <input type="text" id="rlNum" placeholder="Nomor (01)" required />
+                <select id="rlSeverity">
+                  <option value="Wajib">Wajib</option>
+                  <option value="Kick Langsung">Kick Langsung</option>
+                  <option value="Peringatan">Peringatan</option>
+                </select>
+              </div>
+              <input type="text" id="rlTitle" placeholder="Judul Aturan (misal: Dilarang Spam)" required />
+              <textarea id="rlDetail" rows="2" placeholder="Penjelasan detail aturan..." required></textarea>
+              <button type="submit" class="btn-primary">Simpan Rule</button>
+            </form>
+            <div class="admin-manage-list" id="adminRulesList"></div>
+          </div>
+
+          <!-- Kelola Album -->
+          <div class="doc-card">
+            <h3>+ Tambah Foto ke Album</h3>
+            <form id="addAlbumForm" class="admin-form">
+              <input type="text" id="alTitle" placeholder="Judul Momen" required />
+              <input type="url" id="alUrl" placeholder="Link Gambar (https://...)" required />
+              <input type="text" id="alCaption" placeholder="Caption singkat..." required />
+              <button type="submit" class="btn-primary">Upload ke Galeri</button>
+            </form>
+            <div class="admin-manage-list" id="adminAlbumsList"></div>
+          </div>
+
+          <!-- Moderasi Saran & Kritik Anonim -->
+          <div class="doc-card">
+            <h3>🛡️ Moderasi Pesan Anonim</h3>
+            <p class="mono-label">Hapus pesan spam atau tidak pantas di bawah ini:</p>
+            <div class="admin-manage-list" id="adminFeedbacksList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

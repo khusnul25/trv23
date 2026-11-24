@@ -4,8 +4,6 @@ const jwt = require('jsonwebtoken');
 const { Redis } = require('@upstash/redis');
 
 const app = express();
-
-// Ganti '*' dengan domain Netlify lu setelah deploy agar API terkunci khusus untuk web lu
 app.use(cors({ origin: 'https://therevanants.netlify.app/' }));
 app.use(express.json({ limit: '20mb' }));
 
@@ -57,7 +55,6 @@ app.get('/api/data', async (req, res) => {
   }
 });
 
-// Kirim Saran & Kritik Anonim
 app.post('/api/feedback', async (req, res) => {
   try {
     const { category, message } = req.body;

@@ -6,16 +6,14 @@ const { Redis } = require('@upstash/redis');
 const app = express();
 
 // Ganti '*' dengan domain Netlify lu setelah deploy agar API terkunci khusus untuk web lu
-app.use(cors({ origin: '*' }));
-app.use(express.json({ limit: '5mb' }));
+app.use(cors({ origin: 'https://therevanants.netlify.app/' }));
+app.use(express.json({ limit: '20mb' }));
 
-// Inisialisasi Database Bawaan Vercel Storage (Otomatis baca Env dari Vercel)
 const redis = new Redis({
   url: process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL,
   token: process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN,
 });
 
-// Helper baca & simpan array data ke Vercel Storage
 async function getCollection(key) {
   const data = await redis.get(key);
   return Array.isArray(data) ? data : [];

@@ -4,7 +4,12 @@ const jwt = require('jsonwebtoken');
 const { Redis } = require('@upstash/redis');
 
 const app = express();
-app.use(cors({ origin: 'https://therevanants.netlify.app' }));
+app.use(cors({
+  origin: 'https://therevanants.netlify.app',
+  methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.options('*', cors());
 app.use(express.json({ limit: '20mb' }));
 
 const redis = new Redis({
